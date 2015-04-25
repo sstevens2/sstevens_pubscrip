@@ -9,3 +9,6 @@
 	bin.  It goes though each linnean classification level and removes
 	any marker gene hits below the set cutoffprob. value.  It then looks
 	for a classification matching above the cutoffperc. value specificed.
+#### filterbylen3.py
+	This script takes a fasta file and filters out reads/contigs which are
+	below your minlen cutoff.

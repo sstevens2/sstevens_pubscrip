@@ -2,6 +2,9 @@
 
 import sys, os
 
+__author__ = "Sarah Stevens"
+__email__ = "sstevens2@wisc.edu"
+
 def usage():
 	print "Usage: filterbylen2.py fastafile minlen"
 	print "Doesn't use Bio package, only keeps seqs >=minlen"
@@ -31,4 +34,3 @@ outputfile=open(output_name+".fa", "w")
 for read in readslist:
 	outputfile.write(">"+read[0]+"\n"+read[1]+"\n")
 outputfile.close()
-

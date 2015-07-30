@@ -40,6 +40,9 @@ for contig in records:
 output_fna=open(os.path.splitext(sys.argv[1])[0]+'_norrna.fna','w')
 SeqIO.write(records,output_fna,'fasta')
 output_fna.close()
-#output_gbk=open(os.path.splitext(sys.argv[1])[0]+'_norrna.gbk','w')
-#SeqIO.write(contig,output_gbk,'genbank')
-#output_gbk.close()
+# Output genbank file too, currently disabled since the IMG locus tags are too long for proper genbank files
+"""
+output_gbk=open(os.path.splitext(sys.argv[1])[0]+'_norrna.gbk','w')
+SeqIO.write(contig,output_gbk,'genbank')
+output_gbk.close()
+"""

@@ -15,4 +15,4 @@
 	below your minlen cutoff.
 
 #### maskrRNAgbk.py
-	This script takes a genbank file and replaces any nucleotides annotated as rRNA with N's.  Written for python3.
+	This script takes a genbank file and replaces any nucleotides annotated as rRNA with N's.  Written for python3.  Outputs a fasta file.

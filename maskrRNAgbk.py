@@ -11,7 +11,7 @@ __author__ = "Sarah Stevens"
 __email__ = "sstevens2@wisc.edu"
 
 def usage():
-    print("Usage: gene_sweep_analysis.py genbankfile.gbk")
+    print("Usage: maskrRNAgbk.py genbankfile.gbk")
     print("Finds each annotated rRNA sequence and replaces all nucleotides with N")
     print("Leaves annotation there so you know where it used to be")
     print("Makes fastafile for output")

@@ -1,34 +1,40 @@
-#!/usr/common/usg/languages/python/2.7.4/bin/python
-
-import sys
-
-"""parse_phylosift_sts.py: takes a sequence_taxa_summary.txt file from the program phyosift (run on only one bin/genome)
-	and uses a cutoff probability and percentage to determine the taxonomy of that bin/genome"""
+import sys, argparse
 
 __author__ = "Sarah Stevens"
 __email__ = "sstevens2@wisc.edu"
 
-def usage():
-	print "Usage: parse_phylosift_sts.py inputfile  cutoffprob. cutoffpercentage outnameprefix BacteriaArchaeaMarkersOnly(True/False?)"
-	print "Example: parse_phylosift_sts.py sequence_taxa_summary.txt .90 .70 sts_mygenome.txt True"
-	print "The cutoffprob. and cutoffperc. need to be in decimal form, not percentages"
-	print "The cutoffprob. removes any marker genes with probabilies below that value, for each level of taxonomy."
-	print "The cutoffperc. only allows for classification if the marker genes match at that level of taxonomy above this value."
-	print "Must use 'True' or 'False' exactly for using only the Bacterial/Archaeal Marker genes"
+# Inputs
+def parseArgs():
+	parser = argparse.ArgumentParser(description='parse_phylosift_sts.py: takes a \
+		sequence_taxa_summary.txt file from the program phyosift (run on only one \
+		bin/genome) and uses a cutoff probability and percentage to determine the \
+		taxonomy of that bin/genome')
+	parser.add_argument('--stsfile','-sts' , action="store", dest='sts_in', type=str, \
+		required=True, metavar='sequence_taxa_summary.txt', \
+		help='This is the sequence_taxa_summary.txt file output by phylosift.')
+	parser.add_argument('--cutoff_prob','-co_prob', action="store", dest='co_prob', \
+		type=float, required=True, metavar='.90', help='The cutoffprob. removes any marker \
+		genes with probabilies below that value, for each level of taxonomy. \
+		Must be decimal form.')
+	parser.add_argument('--cutoff_perc','-co_perc', action="store", dest='co_perc', \
+		type=float, required=True, metavar='.70', help='The cutoffperc. only allows for \
+		classification if the marker genes match at that level of taxonomy above this value.\
+		Must be decimal form.')
+	parser.add_argument('--out_name','-out', action="store", dest='outname', \
+		type=str, required=True, metavar='sts_mygenome.txt', help='Allows you to specify the prefix \
+		for the output filename')
+	parser.add_argument('--bactArchMarkersOnly', '-bamo', action='store_true', \
+		dest='concatonly', default=False, \
+		help='Must use "True" or "False" exactly for using only the Bacterial/Archaeal Marker genes')
+	args=parser.parse_args()
+	return args.sts_in, args.co_prob, args.co_perc, args.outname, args.concatonly
 
-if len(sys.argv) !=6:
-	usage()
-	exit()
+
 
 #Bring in the inputs and set up output
-inputfile=open(sys.argv[1], "rU")
+sts_file, co_prob, co_perc, outname, concatonly = parseArgs()
+inputfile=open(sts_file, "rU")
 list1 =inputfile.readlines()
-co_prob=float(sys.argv[2])
-co_perc=float(sys.argv[3])
-outname=sys.argv[4]
-concatonly=bool(False)
-if sys.argv[4] == "True":
-	concatonly=bool(True)
 outputfile=open(outname+".prob+"+str(co_prob)+".perc"+str(co_perc)+".txt", "w")
 
 

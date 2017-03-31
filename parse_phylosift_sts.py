@@ -25,9 +25,10 @@ def parseArgs():
 		for the output filename')
 	parser.add_argument('--bactArchMarkersOnly', '-bamo', action='store_true', \
 		dest='concatonly', default=False, \
-		help='Must use "True" or "False" exactly for using only the Bacterial/Archaeal Marker genes')
+		help='Must use "True" or "False" exactly for using only the Bacterial/Archaeal Marker genes \
+		Default:False')
 	parser.add_argument('--min_hits','-mh', action='store', dest='min_hits', type=int, \
-		default=2, help='Min number of markers that must be used for a classification')
+		default=3, metavar='3', help='Min number of markers that must be used for a classification, Default:3')
 	args=parser.parse_args()
 	return args.sts_in, args.co_prob, args.co_perc, args.outname, args.concatonly, args.min_hits
 
@@ -65,7 +66,7 @@ for rank in taxon_ranks:
 	max_taxon_count=counts.loc[counts['Markers_Hit'].argmax(),'Markers_Hit'] # get the biggest taxon count
 	max_taxon_name=counts.loc[counts['Markers_Hit'].argmax(),'Taxon_Name'] # get the biggest taxon name
 	total_count=counts.sum(axis=0).iloc[1]
-	if max_taxon_count/total_count>=co_perc and max_taxon_count>minHits: 
+	if max_taxon_count/total_count>=co_perc and max_taxon_count>=minHits: 
 		taxon_name=max_taxon_name
 		classification.append(taxon_name)
 	else:

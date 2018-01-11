@@ -25,8 +25,8 @@ def parseArgs():
 		for the output filename')
 	parser.add_argument('--bactArchMarkersOnly', '-bamo', action='store_true', \
 		dest='concatonly', default=False, \
-		help='Must use "True" or "False" exactly for using only the Bacterial/Archaeal Marker genes \
-		Default:False')
+		help='If this argument is given the program will classify using only the Bacterial/Archaeal Marker genes \
+		By defult, without this flag, it uses all of the genes')
 	parser.add_argument('--min_hits','-mh', action='store', dest='min_hits', type=int, \
 		default=3, metavar='3', help='Min number of markers that must be used for a classification, Default:3')
 	args=parser.parse_args()
